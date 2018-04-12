@@ -44,10 +44,12 @@ describe('Radio', () => {
             <ui-radio label="单选1"
                 value="simple1"
                 name="group"
+                s-ref="radio1"
                 checked="{=inputValue=}"/>
             <ui-radio label="单选2"
                 value="simple2"
                 name="group"
+                s-ref="radio2"
                 checked="{=inputValue=}"/>
             </div>`,
 
@@ -57,8 +59,8 @@ describe('Radio', () => {
                 };
             }
         });
-        let firstRadio = component.children[0].el;
-        let secondRadio = component.children[1].el;
+        let firstRadio = component.ref('radio1').el;
+        let secondRadio = component.ref('radio2').el;
         let firstInput = firstRadio.querySelector('input');
         let secondInput = secondRadio.querySelector('input');
         expect(firstRadio.tagName).to.equal('LABEL');
@@ -81,10 +83,12 @@ describe('Radio', () => {
                 value="simple1"
                 name="group"
                 disabled
+                s-ref="radio1"
                 checked="{=inputValue=}"/>
             <ui-radio label="单选2"
                 value="simple2"
                 disabled
+                s-ref="radio2"
                 name="group"
                 checked="{=inputValue=}"/>
             </div>`,
@@ -95,8 +99,8 @@ describe('Radio', () => {
                 };
             }
         });
-        let firstRadio = component.children[0].el;
-        let secondRadio = component.children[1].el;
+        let firstRadio = component.ref('radio1').el;
+        let secondRadio = component.ref('radio2').el;
         let firstInput = firstRadio.querySelector('input');
         let secondInput = secondRadio.querySelector('input');
         expect(firstRadio.tagName).to.equal('LABEL');

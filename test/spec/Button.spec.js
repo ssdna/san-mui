@@ -5,7 +5,7 @@
 
 import {expect} from 'chai';
 import san from 'san';
-import {IconButton, Button, FlatButton} from 'src/Button';
+import {IconButton, Button} from 'src/Button';
 import 'src/Button/Button.styl';
 
 
@@ -28,8 +28,7 @@ describe('Button', () => {
             Object.assign({
                 components: {
                     'ui-button': Button,
-                    'ui-icon-button': IconButton,
-                    'ui-flat-button': FlatButton
+                    'ui-icon-button': IconButton
                 },
                 initData() {
                     return {};
@@ -73,23 +72,6 @@ describe('Button', () => {
         });
     });
 
-    it('component link', () => {
-        let component = createComponent({
-            template: '<div><ui-button target="{{target}}" href="{{href}}">Hello</ui-button></div>',
-            initData() {
-                return {
-                    href: 'hello',
-                    target: '_blank'
-                };
-            }
-        });
-        expect(component.children[0].el.tagName).to.equal('A');
-        expect(component.children[0].el.getAttribute('href')).to.equal('hello');
-        expect(component.children[0].el.innerText.trim())
-            .to.equal('HELLO');
-        component.dispose();
-    });
-
     it('component iconbutton', done => {
         let component = createComponent({
             template: '<div><ui-icon-button on-click="handleClick">keyboard_arrow_down</ui-icon-button></div>',
@@ -106,18 +88,9 @@ describe('Button', () => {
         el.click();
     });
 
-    it('component flatbutton', () => {
-        let component = createComponent({
-            template: '<div><ui-flat-button>Hello</ui-flat-button></div>'
-        });
-        expect(component.children[0].el.innerText.trim()).to.equal('HELLO');
-        component.dispose();
-    });
-
     it('disabled button', done => {
         let component = createComponent({
             template: '<div>' +
-                '<ui-button disabled href="{{href}}">disabled link</ui-button>' +
                 '<ui-button>disabled button</ui-button>' +
             '</div>',
             initData() {
@@ -127,15 +100,12 @@ describe('Button', () => {
             }
         });
 
-        let [link, button] = component.children;
+        let [button] = component.children;
         button.data.set('disabled', true);
         button.click();
         component.nextTick(() => {
-            expect(link.el.href).to.equal('javascript:void(0);');
             expect(button.el.disabled).to.equal(true);
-            link.click();
             component.nextTick(() => {
-                expect(link.el.href).to.equal('javascript:void(0);');
                 expect(button.el.disabled).to.equal(true);
                 component.dispose();
                 done();

@@ -159,7 +159,7 @@ describe('List', () => {
     it('selectable list', done => {
         let component = createComponent({
             template: `<div>
-                            <ui-list value="{{ value }}" selectable="{{!0}}" on-change="listItemSelect($event)">
+                            <ui-list s-ref="list" value="{{ value }}" selectable="{{!0}}" on-change="listItemSelect($event)">
                                 <ui-list-item san-ref="item1" primaryText="item 1" value="{{1}}"></ui-list-item>
                                 <ui-list-item san-ref="item2" primaryText="item 2" value="{{2}}"></ui-list-item>
                             </ui-list>
@@ -180,7 +180,7 @@ describe('List', () => {
         });
         let itemComponent1 = component.ref('item1');
         let itemComponent2 = component.ref('item2');
-        expect(component.children[0].data.get('selectable')).to.equal(true);
+        expect(component.ref('list').data.get('selectable')).to.equal(true);
         expect(itemComponent2.el.className).to.contain('selected');
         itemComponent1.el.click();
     });

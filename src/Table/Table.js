@@ -95,7 +95,6 @@ export default class Table extends san.Component {
             const type = this.checkTHeadState(val);
             this.thead.updateSelectedState(type);
         });
-
     }
 
     checkTHeadState(val) {
@@ -111,6 +110,7 @@ export default class Table extends san.Component {
         else {
             type = 'indeterminate';
         }
+        // console.log(type);
         return type;
     }
 

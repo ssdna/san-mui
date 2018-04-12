@@ -58,7 +58,11 @@ describe('Pagination', () => {
         let component = createComponent({
             template: `
                 <div>
-                    <sm-pagination current="{{current}}" pageSize="{{pageSize}}" pageSizeOptions="{{pageSizeOptions}}" total="{{total}}"></sm-pagination>
+                    <sm-pagination current="{{current}}"
+                    s-ref="pager"
+                    pageSize="{{pageSize}}"
+                    pageSizeOptions="{{pageSizeOptions}}"
+                    total="{{total}}"></sm-pagination>
                 </div>
             `,
             initData() {
@@ -70,7 +74,7 @@ describe('Pagination', () => {
                 };
             }
         });
-        let paginationComponent = component.children[0];
+        let paginationComponent = component.ref('pager');
         expect(paginationComponent.data.get('pageSize')).to.equal(2);
         expect(paginationComponent.data.get('current')).to.equal(1);
         expect(paginationComponent.el.querySelector('.page-num.current').textContent).to.equal('1');

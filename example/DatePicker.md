@@ -8,7 +8,7 @@
 <template>
     <div>
         <div class="date-picker-demo-row">
-            <san-date-picker value="{=date=}" />
+            <san-date-picker value="{=date=}" isDisabled="{{isDisabled}}"/>
         </div>
         <div class="date-picker-demo-row">
             <san-date-picker value="{=date=}" disabled />
@@ -18,13 +18,23 @@
 <script>
 import DatePicker from '../src/DatePicker';
 import '../src/DatePicker/DatePicker.styl';
+import moment from 'moment';
 export default {
     components: {
         'san-date-picker': DatePicker
     },
     initData() {
         return {
-            date: ''
+            date: '',
+            isDisabled(date) {
+                let startTime = moment('20180301', 'YYYYMMDD').unix();
+                let endTime = moment('20180306', 'YYYYMMDD').unix();
+                if (date > startTime && date < endTime) {
+                    console.log(123);
+                    return true;
+                }
+                return false;
+            }
         };
     }
 };
@@ -72,6 +82,7 @@ export default {
 | open | boolean | false | false | 是否打开选择弹窗 |
 | format | string | false | YYYY-MM-DD | 日期字符串的格式；更多的格式请参考[这里](http://momentjs.cn/docs/#/displaying/format/) |
 | disabled | boolean | false | false | 是否禁用 |
+| isDisabled | function | false || 满足条件的函数是否禁用|
 
 > DatePicker 的输入框部分属性与 TextField 一致，可以根据需要添加
 

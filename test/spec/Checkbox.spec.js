@@ -53,6 +53,7 @@ describe('Checkbox', () => {
             template: `<div>
             <ui-checkbox label="最简单的"
                 value="{{value}}"
+                s-ref="checkbox"
                 class="demo-checkbox"
                 on-input-change="handleChange($event)"
                 checked="{=inputValue=}"/>
@@ -66,7 +67,7 @@ describe('Checkbox', () => {
             },
             handleChange(e) {}
         });
-        let el = component.children[0].el;
+        let el = component.ref('checkbox').el;
         let inputElement = el.querySelector('input');
         expect(el.tagName).to.equal('LABEL');
         expect(inputElement.checked).to.equal(true);
@@ -85,6 +86,7 @@ describe('Checkbox', () => {
             template: `<div>
             <ui-checkbox label="最简单的"
                 value="{{value}}"
+                s-ref="checkbox"
                 class="demo-checkbox"
                 disabled="{{disabled}}"
                 checked="{=inputValue=}"/>
@@ -98,7 +100,7 @@ describe('Checkbox', () => {
                 };
             }
         });
-        let el = component.children[0].el;
+        let el = component.ref('checkbox').el;
         let inputElement = el.querySelector('input');
         expect(el.tagName).to.equal('LABEL');
         expect(inputElement.checked).to.equal(true);
@@ -124,6 +126,7 @@ describe('Checkbox', () => {
                 value="{{value}}"
                 class="demo-checkbox"
                 disabled
+                s-ref="checkbox"
                 checked="{=inputValue=}"/>
             </div>`,
 
@@ -133,7 +136,7 @@ describe('Checkbox', () => {
                 };
             }
         });
-        let el = component.children[0].el;
+        let el = component.ref('checkbox').el;
         let inputElement = el.querySelector('input');
         expect(el.tagName).to.equal('LABEL');
         expect(inputElement.checked).to.equal(false);
@@ -152,16 +155,20 @@ describe('Checkbox', () => {
             template: `<div>
                 <ui-checkbox label="num1"
                     value="{{num1}}"
+                    s-ref="checkbox1"
                     checked="{=inputValueNum=}"/>
                 <ui-checkbox label="num2"
                     value="{{num2}}"
+                    s-ref="checkbox2"
                     checked="{=inputValueNum=}"/>
                 <br>
                 <ui-checkbox label="str1"
                     value="{{str1}}"
+                    s-ref="checkbox3"
                     checked="{=inputValueStr=}"/>
                 <ui-checkbox label="str2"
                     value="{{str2}}"
+                    s-ref="checkbox4"
                     checked="{=inputValueStr=}"/>
             </div>`,
 
@@ -176,7 +183,10 @@ describe('Checkbox', () => {
                 };
             }
         });
-        const [cb1, cb2, , cb3, cb4] = component.children;
+        const cb1 = component.ref('checkbox1');
+        const cb2 = component.ref('checkbox2');
+        const cb3 = component.ref('checkbox3');
+        const cb4 = component.ref('checkbox4');
         expect(cb1.el.querySelector('input').checked).to.equal(true);
         expect(cb2.el.querySelector('input').checked).to.equal(false);
         expect(cb3.el.querySelector('input').checked).to.equal(false);
@@ -245,7 +255,8 @@ describe('Checkbox', () => {
 
         try {
             createComponent(option);
-        } catch (err) {
+        }
+        catch (err) {
             expect(err.message).to.include('[SAN-MUI ERROR]');
             done();
         }
@@ -257,6 +268,7 @@ describe('Checkbox', () => {
             <ui-checkbox label="最简单的"
                 value="{{value}}"
                 class="demo-checkbox"
+                s-ref="checkbox"
                 indeterminate="{=indeterminate=}"
                 checked="{=inputValue=}"/>
             </div>`,
@@ -269,7 +281,7 @@ describe('Checkbox', () => {
                 };
             }
         });
-        let el = component.children[0].el;
+        let el = component.ref('checkbox').el;
         let inputElement = el.querySelector('input');
         expect(el.tagName).to.equal('LABEL');
         expect(inputElement.indeterminate).to.equal(true);
@@ -288,6 +300,7 @@ describe('Checkbox', () => {
             template: `<div>
             <ui-checkbox label="indeterminate test"
                 value="{{value}}"
+                s-ref="checkbox"
                 class="demo-checkbox"
                 canClickToSwitchToIndeterminate
                 checked="{=inputValue=}"/>
@@ -300,7 +313,7 @@ describe('Checkbox', () => {
                 };
             }
         });
-        let el = component.children[0].el;
+        let el = component.ref('checkbox').el;
         let inputElement = el.querySelector('input');
         expect(el.tagName).to.equal('LABEL');
         expect(inputElement.indeterminate).to.equal(false);

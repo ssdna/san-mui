@@ -24,14 +24,11 @@ export default class TR extends san.Component {
                 san-if="tableSelectable === 'multi'"
                 class="sm-table-col-select">
                 <sm-checkbox
-                    s-if="disabled"
-                    checked="{{checked}}"
-                    disabled/>
-                <sm-checkbox
-                    s-else
+                    s-ref="checkbox"
                     checked="{{checked}}"
                     indeterminate="{{indeterminate}}"
                     value="ON"
+                    disabled="{{!!disabled}}"
                     on-input-change="select($event)"/>
             </sm-th>
             <sm-th
@@ -70,12 +67,17 @@ export default class TR extends san.Component {
         return {
             pos: 'tbody',
             selected: false,
-            indeterminate: false
+            indeterminate: false,
+            disable: false
         };
     }
 
     inited() {
         this.dispatch('UI:tr-inited');
+    }
+
+    attached() {
+        this.dispatch('UI:tr-attached');
     }
 
     /**
@@ -94,13 +96,17 @@ export default class TR extends san.Component {
             return;
         }
 
-        this.data.set('selected', nextSelected, {silent: false});
+        this.data.set('selected', nextSelected);
 
         this.dispatch(
             `UI:table-select-${pos === 'tbody' ? 'item' : 'head'}`,
             nextSelected
         );
 
+    }
+
+    detached() {
+        this.dispatch('UI:tr-detached');
     }
 
 

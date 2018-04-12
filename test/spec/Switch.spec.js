@@ -62,6 +62,7 @@ describe('Switch', () => {
                 label="swith simple use"
                 onValue="111"
                 offValue="222"
+                s-ref="switch"
                 value="{=inputValue=}"/>
             </div>`,
 
@@ -71,7 +72,7 @@ describe('Switch', () => {
                 };
             }
         });
-        let el = component.children[0].el;
+        let el = component.ref('switch').el;
         let inputElement = el.querySelector('input');
         component.nextTick(() => {
             expect(inputElement.checked).to.equal(true);
@@ -91,6 +92,7 @@ describe('Switch', () => {
             <ui-switch
                 disabled
                 label="开关"
+                s-ref="switch"
                 value="{=inputValue=}"/>
             </div>`,
 
@@ -100,7 +102,7 @@ describe('Switch', () => {
                 };
             }
         });
-        let el = component.children[0].el;
+        let el = component.ref('switch').el;
         let inputElement = el.querySelector('input');
         expect(el.tagName).to.equal('LABEL');
         expect(inputElement.disabled).to.equal(true);
@@ -116,6 +118,7 @@ describe('Switch', () => {
         let component = createComponent({
             template: `<div>
             <ui-switch
+                s-ref="switch"
                 label="boolean value"
                 onValue="{{onValue}}"
                 offValue="{{offValue}}"
@@ -130,7 +133,7 @@ describe('Switch', () => {
                 };
             }
         });
-        let el = component.children[0].el;
+        let el = component.ref('switch').el;
         let inputElement = el.querySelector('input');
         component.nextTick(() => {
             expect(inputElement.checked).to.equal(true);
@@ -164,7 +167,8 @@ describe('Switch', () => {
 
         try {
             createComponent(option);
-        } catch (err) {
+        }
+        catch (err) {
             expect(err.message).to.include('[SAN-MUI ERROR]');
             done();
         }

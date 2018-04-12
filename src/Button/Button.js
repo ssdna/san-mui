@@ -5,12 +5,12 @@
 
 import {create} from '../common/util/cx';
 import {TouchRipple} from '../Ripple';
-import BaseButton from './Base';
-import {DataTypes} from 'san';
+// import BaseButton from './Base';
+import {Component, DataTypes} from 'san';
 
 const cx = create('button');
 
-export default class Button extends BaseButton {
+export default class Button extends Component {
 
     static components = {
         'san-touch-ripple': TouchRipple
